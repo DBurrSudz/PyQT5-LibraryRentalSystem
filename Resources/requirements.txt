@@ -1,0 +1,8 @@
+cffi==1.14.2
+cryptography==3.0
+peewee==3.13.3
+pycparser==2.20
+PyMySQL==0.10.0
+PyQt5==5.15.0
+PyQt5-sip==12.8.0
+six==1.15.0
