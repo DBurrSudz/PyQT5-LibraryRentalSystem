@@ -105,7 +105,6 @@ def addCollection(collectionid: str, title: str, publisher: str, author: list, g
             return True
 
     except IntegrityError:
-        print(f"The Collection ID {collectionid.strip()} is already being used.")
         return False
 
     finally:
