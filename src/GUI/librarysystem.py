@@ -43,17 +43,17 @@ class WelcomeScreen(Login.Ui_MainWindow):
 
 
     
-    @staticmethod
-    def getWelcomeScreen(MainWindow: QtWidgets.QMainWindow):
+    @classmethod
+    def getWelcomeScreen(cls,MainWindow: QtWidgets.QMainWindow):
         """Returns the welcome screen.
            :param MainWindow (QMainWindow): A mainwindow.
 
         """
 
-        if not WelcomeScreen._welcomescreen:
-            WelcomeScreen(MainWindow)
+        if not cls._welcomescreen:
+            cls(MainWindow)
 
-        return WelcomeScreen._welcomescreen
+        return cls._welcomescreen
 
 
     def _showLogin(self, clickedButton: QtWidgets.QPushButton)->None:
@@ -94,18 +94,18 @@ class SignInScreen(SignIn.Ui_SignIn):
         SignInScreen._signInScreen = self
 
 
-    @staticmethod
-    def getSignInScreen(MainWindow, userType=" "):
+    @classmethod
+    def getSignInScreen(cls,MainWindow, userType=" "):
         """Returns the sign in screen.
 
            :param MainWindow (QMainWindow): A mainwindow.
            :param userType (str): The type of user currently on the system.
         """
 
-        if not SignInScreen._signInScreen:
-            SignInScreen(MainWindow, userType)
+        if not cls._signInScreen:
+            cls(MainWindow, userType)
         
-        return SignInScreen._signInScreen
+        return cls._signInScreen
 
 
     @staticmethod
@@ -193,18 +193,18 @@ class RegisterScreen(NewAccount.Ui_NewAccount):
 
 
     
-    @staticmethod
-    def getRegisterScreen(MainWindow: QtWidgets.QMainWindow, userType: str):
+    @classmethod
+    def getRegisterScreen(cls,MainWindow: QtWidgets.QMainWindow, userType: str):
         """Returns the register screen.
            :param MainWindow(QMainWindow): A mainwindow
            :param userType (str): The type of user
         
         """
 
-        if not RegisterScreen._registerPage:
-            RegisterScreen(MainWindow, userType)
+        if not cls._registerPage:
+            cls(MainWindow, userType)
 
-        return RegisterScreen._registerPage
+        return cls._registerPage
 
 
     
@@ -287,18 +287,18 @@ class DashboardScreen(Dashboard.Ui_MainWindow):
             raise Exception("An instance already exists.")
 
 
-    @staticmethod
-    def getDashboardScreen(MainWindow: QtWidgets.QMainWindow, user: str):
+    @classmethod
+    def getDashboardScreen(cls,MainWindow: QtWidgets.QMainWindow, user: str):
         """Returns the dashboard screen
            
            :param MainWindow(QMainWindow): A mainwindow
            :param user (str): The current user of the system.
         
         """
-        if not DashboardScreen._dashboardScreen:
-            DashboardScreen(MainWindow,user)
+        if not cls._dashboardScreen:
+            cls(MainWindow,user)
 
-        return DashboardScreen._dashboardScreen
+        return cls._dashboardScreen
 
     
 
@@ -377,8 +377,8 @@ class Home(HomeScreen.Ui_homeFrame):
 
 
 
-    @staticmethod
-    def getHomeFrame(Frame: QtWidgets.QFrame, user: str):
+    @classmethod
+    def getHomeFrame(cls,Frame: QtWidgets.QFrame, user: str):
         """Returns the home screen page of the dashboard
            
            :param Frame (QFrame): A frame
@@ -386,10 +386,10 @@ class Home(HomeScreen.Ui_homeFrame):
 
         """
 
-        if not Home._homescreen:
-            Home(Frame,user)
+        if not cls._homescreen:
+            cls(Frame,user)
 
-        return Home._homescreen
+        return cls._homescreen
 
 
     
@@ -398,11 +398,12 @@ class Home(HomeScreen.Ui_homeFrame):
 
         self.overdueBooksTable.setRowCount(0)
         overduebooks = database.getOverdueRentals(self._currentUser)
-        for rowNumber, rental in enumerate(overduebooks):
-            self.overdueBooksTable.insertRow(rowNumber)
-            for columnNumber, content in enumerate(rental):
-                self.overdueBooksTable.setColumnWidth(columnNumber,160)
-                self.overdueBooksTable.setItem(rowNumber,columnNumber,QtWidgets.QTableWidgetItem(str(content)))
+        if not overduebooks is None:
+            for rowNumber, rental in enumerate(overduebooks):
+                self.overdueBooksTable.insertRow(rowNumber)
+                for columnNumber, content in enumerate(rental):
+                    self.overdueBooksTable.setColumnWidth(columnNumber,160)
+                    self.overdueBooksTable.setItem(rowNumber,columnNumber,QtWidgets.QTableWidgetItem(str(content)))
 
 
 
@@ -424,18 +425,18 @@ class Rent(RentScreen.Ui_Frame):
             Rent._rentscreen = self
 
 
-    @staticmethod
-    def getRentScreen(Frame: QtWidgets.QFrame, user: str)->None:
+    @classmethod
+    def getRentScreen(cls,Frame: QtWidgets.QFrame, user: str)->None:
         """Returns the book rent screen
            
            :param Frame (QFrame): A frame
            :param user (str): The current user of the system.
 
         """
-        if not Rent._rentscreen:
-            Rent(Frame,user)
+        if not cls._rentscreen:
+            cls(Frame,user)
 
-        return Rent._rentscreen
+        return cls._rentscreen
 
 
     def populateTable(self)->None:
@@ -497,14 +498,14 @@ class BookReturn(ReturnScreen.Ui_Frame):
             BookReturn._returnscreen = self
 
 
-    @staticmethod
-    def getReturnScreen(Frame: QtWidgets.QFrame, user: str)->None:
+    @classmethod
+    def getReturnScreen(cls,Frame: QtWidgets.QFrame, user: str)->None:
         """Returns the book return screen."""
 
         if not BookReturn._returnscreen:
-            BookReturn(Frame,user)
+            cls(Frame,user)
 
-        return BookReturn._returnscreen
+        return cls._returnscreen
 
 
     def populateTable(self)->None:
@@ -570,14 +571,14 @@ class BookEntry(AddBook.Ui_MainWindow):
             raise Exception("An instance already exists.")
 
     
-    @staticmethod
-    def getAddBookScreen(MainWindow: QtWidgets.QMainWindow, currentAdmin: str):
+    @classmethod
+    def getAddBookScreen(cls,MainWindow: QtWidgets.QMainWindow, currentAdmin: str):
         """Returns the add book screen"""
 
-        if not BookEntry._addbookscreen:
-            BookEntry(MainWindow,currentAdmin)
+        if not cls._addbookscreen:
+            cls(MainWindow,currentAdmin)
 
-        return BookEntry._addbookscreen
+        return cls._addbookscreen
 
 
     
