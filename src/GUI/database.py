@@ -122,15 +122,12 @@ def addUser(usrname: str, passw: str, fname: str, lname: str)-> bool:
     try:
         libraryDB.connect(reuse_if_open=True)
         if User.insert(_username= usrname.strip(), _password= passw.strip(), _firstname= fname.strip(), _lastname= lname.strip()).execute() == 0:
-            print(f"The Username {usrname.strip()} is available.")
             return True
 
     except IntegrityError:
-        print(f"The Username {usrname.strip()} has already been taken.")
         return False
 
     finally:
-        print("The database connection has been closed.")
         libraryDB.close()
 
 
@@ -185,11 +182,9 @@ def addBook(bookid: str, collectionid: str, adminid: str, **kwargs)-> bool:
 
         else:
             if Book.insert(_bookID= bookid.strip(), _collectionID= collectionid.strip(), _adminID= adminid.strip()).execute() == 0: #adds book to existing collection
-                print(f"The Book ID {bookid.strip()} is available.")
                 return True
 
     except IntegrityError:
-        print(f"The Book ID {bookid.strip()} is already being used.")
         return False
 
     finally:
@@ -346,20 +341,22 @@ def addRental(rentalid: str, usrname: str, bookid: str)-> bool:
         libraryDB.connect(reuse_if_open=True)
         query = Collection.select(Collection._collectionID,Collection._amount).join(Book).where(Book._bookID == bookid)
         if query:
-            for result in query:
-                updateAmt = result._amount - 1
-                if Collection.update(_amount = updateAmt).where(Collection._collectionID == result._collectionID).execute() == 1:
-                    break
+            if Rental.insert(_rentalID= rentalid.strip(), _username= usrname.strip(), _bookID= bookid.strip(), _dateRented= datetime.datetime.now(), _returnDate= datetime.datetime.now() + datetime.timedelta(days= 30)).execute() == 0:
+                for result in query:
+                    updateAmt = result._amount - 1
+                    if Collection.update(_amount = updateAmt).where(Collection._collectionID == result._collectionID).execute() == 1:
+                        return True
+                    
+                    else:
+                        return False
 
                 else:
                     return False
-
-            if Rental.insert(_rentalID= rentalid.strip(), _username= usrname.strip(), _bookID= bookid.strip(), _dateRented= datetime.datetime.now(), _returnDate= datetime.datetime.now() + datetime.timedelta(days= 30)).execute() == 0:
-                return True
+                
 
             else:
                 return False
-    
+
     except (IntegrityError,DoesNotExist):
         return False
 

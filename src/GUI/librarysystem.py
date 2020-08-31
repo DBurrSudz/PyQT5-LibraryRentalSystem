@@ -308,10 +308,7 @@ class DashboardScreen(Dashboard.Ui_MainWindow):
             self._showHome()
         
         elif clickedButton == self.borrow:
-            child = self.layout.itemAt(0)
-            if child:
-                child.widget().setParent(None)
-
+            self._clearLayout()
             borrowScreen = Rent.getRentScreen(QtWidgets.QFrame(),self.currentUser)
             borrowScreen._rentscreen.populateTable()
             self.layout.addWidget(borrowScreen._rentscreen.frame)
@@ -319,10 +316,7 @@ class DashboardScreen(Dashboard.Ui_MainWindow):
 
         
         elif clickedButton == self.rent:
-            child = self.layout.itemAt(0)
-            if child:
-                child.widget().setParent(None)
-
+            self._clearLayout()
             returnScreen = BookReturn.getReturnScreen(QtWidgets.QFrame(),self.currentUser)
             returnScreen._returnscreen.populateTable()
             self.layout.addWidget(returnScreen._returnscreen.frame)
@@ -342,18 +336,22 @@ class DashboardScreen(Dashboard.Ui_MainWindow):
     
     def _showHome(self):
         """Shows the overdue book screen for a user."""
-        child = self.layout.itemAt(0)
-        if child:
-            child.widget().setParent(None)
-
+        
+        self._clearLayout()
         homeScreen = Home.getHomeFrame(QtWidgets.QFrame(),self.currentUser)
         homeScreen._homescreen.populateTable()
         self.layout.addWidget(homeScreen._homescreen.frame)
         homeScreen._homescreen.frame.show()
 
-        
-    
 
+    def _clearLayout(self):
+        """Clears the layout in order to switch dashboard pages"""
+
+        child = self.layout.itemAt(0)
+        if child:
+            child.widget().setParent(None)
+
+        
 
 class Home(HomeScreen.Ui_homeFrame):
     """Defines the homescreen where users see the books that are overdue for return."""
