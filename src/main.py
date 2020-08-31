@@ -1,3 +1,8 @@
+"""
+@author Daniel Burrell
+
+"""
+
 from GUI.librarysystem import WelcomeScreen
 from PyQt5 import QtWidgets, QtCore
 

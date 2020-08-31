@@ -1,3 +1,7 @@
+"""
+@author Daniel Burrell
+"""
+
 from GUI.Views import Login
 from GUI.Views import SignIn
 from GUI.Views import NewAccount
