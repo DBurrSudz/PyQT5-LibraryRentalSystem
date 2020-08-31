@@ -502,7 +502,7 @@ class BookReturn(ReturnScreen.Ui_Frame):
     def getReturnScreen(cls,Frame: QtWidgets.QFrame, user: str)->None:
         """Returns the book return screen."""
 
-        if not BookReturn._returnscreen:
+        if not cls._returnscreen:
             cls(Frame,user)
 
         return cls._returnscreen
