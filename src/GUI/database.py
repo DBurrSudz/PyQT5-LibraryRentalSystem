@@ -2,7 +2,6 @@
 @author Daniel Burrell
 
 """
-
 from peewee import *
 import os
 import datetime
