@@ -6,7 +6,7 @@ from peewee import *
 import os
 import datetime
 
-
+#Use a database of your choice and connect to it here by setting local environment variables.
 libraryDB = MySQLDatabase("library_rental", host= "localhost", port= 3306, user= "root", passwd= os.environ.get('libraryDBPassword'))
 
 

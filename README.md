@@ -4,10 +4,10 @@ After validation, the User is taken to the dashboard where they can perform task
 
 
 ## Graphical User Interface
-Built with the **PyQT** module and QT Designer. Do not edit the .py files in the src/GUI/Views folder.
+Built with the PyQT module and QT Designer. **DO NOT edit the .py files in the src/GUI/Views folder**.
 
 ## Database
 This project uses the [**peewee**](http://docs.peewee-orm.com/en/latest/) Object Relational Mapping module to connect to a local database to create models and execute SQL commands.
 
 ## Running the Project
-To run this project, run the 'python' command from the command line on the 'main' py file file.
+To run this project, run `python main.py` from the command line. You can change the database connection in `database.py` to connect to a preferred database provided in the [**peewee**](http://docs.peewee-orm.com/en/latest/) documentation. Set database credentials in local environment variables.
